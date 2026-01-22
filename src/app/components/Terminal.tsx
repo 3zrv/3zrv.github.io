@@ -277,7 +277,6 @@ export function Terminal() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             className="flex-1 bg-transparent text-gray-300 outline-none caret-red-600"
-            autoFocus
             spellCheck={false}
           />
           <motion.span

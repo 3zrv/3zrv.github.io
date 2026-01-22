@@ -13,6 +13,17 @@ import { useSmoothScroll } from '@/app/hooks/useSmoothScroll';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile/touch
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Reset scroll position on page load
   useEffect(() => {
@@ -35,7 +46,7 @@ export default function App() {
         />
       )}
 
-      <div className="bg-black min-h-screen overflow-x-hidden" style={{ cursor: 'none' }}>
+      <div className="bg-black min-h-screen overflow-x-hidden" style={{ cursor: isMobile ? 'auto' : 'none' }}>
         <CustomCursor />
         <NoiseOverlay />
         <InteractiveGrid />
